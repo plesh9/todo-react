@@ -1,37 +1,53 @@
 import { Box, Button, List, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid';
+import { useAppSelector } from '../../app/hooks';
+import { useTask } from '../../hooks/useTask';
+import FiltersTodo from './FiltersTodo';
+import NoTasks from './NoTasks';
 import TaskTodo from './TaskTodo';
-
-export type TaskType = {
-    id: number,
-    title: string,
-    isDone: boolean
-}
 
 type PropsType = {
     title: string
-    tasks: TaskType[]
 }
 
-function Todo(props: PropsType) {
+function Todo({ title }: PropsType) {
+    const { taskInputText, filterTasks, tasks } = useAppSelector(state => state.todos)
+    const { handleAddTask, onChangeInputTaskText } = useTask()
+
     return (
         <Grid item xs={12} sm={6} md={4}>
             <Box className="to-do__item" display="flex" flexDirection="column">
                 <Typography variant="h6" fontWeight={500} component="h2">
-                    {props.title}
+                    {title}
                 </Typography>
                 <Box display={'flex'} alignItems='flex-end' columnGap={3} mt={2}>
-                    <TextField id="standard-basic" fullWidth label="task" variant="standard" size="small" />
-                    <Button className='to-do__btn' variant="contained" size="small">add</Button>
+                    <TextField
+                        fullWidth
+                        label="New task"
+                        variant="standard"
+                        size="small"
+                        value={taskInputText}
+                        onChange={e => onChangeInputTaskText(e.target.value)}
+                    />
+                    <Button
+                        className='to-do__btn'
+                        variant="contained"
+                        size="small"
+                        onClick={handleAddTask}
+                        disabled={!taskInputText}
+                    >
+                        add
+                    </Button>
                 </Box>
-                <List style={{ flex: '1 1 auto' }}>
-                    {props.tasks.map(task => <TaskTodo task={task} key={task.id} />)}
-                </List>
-                <Box display="flex" alignItems="center" columnGap={1} justifyContent="flex-end" mt={2}>
-                    <Button variant="contained" size="small">All</Button>
-                    <Button variant="outlined" size="small">Active</Button>
-                    <Button variant="outlined" size="small">Completed</Button>
-                </Box>
+                {filterTasks.length
+                    ?
+                    <List className="to-do__list">
+                        {filterTasks.map(task => <TaskTodo task={task} key={task.id} />)}
+                    </List>
+                    :
+                    <NoTasks />
+                }
+                {tasks.length ? <FiltersTodo /> : ''}
             </Box>
         </Grid>
     )

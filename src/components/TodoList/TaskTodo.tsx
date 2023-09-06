@@ -1,28 +1,24 @@
 import { Checkbox, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { TaskType } from './Todo';
-import { removeTask } from '../../features/taskSlise';
-import { useAppDispatch } from '../../app/hooks';
+import { useTask } from '../../hooks/useTask';
+import { TaskType } from '../../Types/Types';
 
 type PropsTaskType = {
   task: TaskType
 }
 
 function TaskTodo({ task }: PropsTaskType) {
-  const dispatch = useAppDispatch();
-
-  const handleRemoveTask = () => {
-    dispatch(removeTask({ taskId: task.id }));
-  }
+  const { handleRemoveTask, handleSetIsDone } = useTask()
 
   return (
     <ListItem
       secondaryAction={
-        <IconButton edge="end" aria-label="delete" onClick={handleRemoveTask}>
+        <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveTask(task.id)}>
           <DeleteIcon />
         </IconButton>
       }
       disablePadding
+      onClick={() => handleSetIsDone(task.id)}
     >
       <ListItemButton dense style={{ paddingLeft: 0 }}>
         <ListItemIcon>

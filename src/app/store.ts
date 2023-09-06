@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import taskSlise from '../features/taskSlise';
+import todosSlise from '../features/todosSlise';
 
 export const store = configureStore({
   reducer: {
-    tasks: taskSlise
+    todos: todosSlise
   },
 });
 
