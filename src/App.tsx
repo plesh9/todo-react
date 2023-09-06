@@ -1,56 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import Grid from '@mui/material/Grid';
+import Todo from './components/TodoList/Todo';
+import './scss/index.scss';
+import { Box, Container, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { RootState } from './app/store';
+
 
 function App() {
+  const { tasks } = useSelector((state: RootState) => state.tasks)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Typography variant="h4" component="h1" fontWeight={700} mt={5} align='center'>
+        To do list
+      </Typography>
+      <Box mt={5}>
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            <Todo title="Terminator" tasks={tasks} />
+          </Grid>
+        </Container>
+      </Box>
     </div>
   );
 }
