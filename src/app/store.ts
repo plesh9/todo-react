@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import todosSlise from '../features/todosSlise';
+import todosSlise from '../features/todos/todosSlise';
 
 export const store = configureStore({
   reducer: {
-    todos: todosSlise
+    todoList: todosSlise
   },
 });
 

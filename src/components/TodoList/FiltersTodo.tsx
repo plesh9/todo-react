@@ -1,11 +1,15 @@
 import { Box, Button } from "@mui/material";
 import { useAppSelector } from "../../app/hooks";
-import { useTask } from "../../hooks/useTask";
+import { useTodo } from "../../hooks/useTodo";
 import { FilterValuesType } from "../../Types/Types";
 
-function FiltersTodo() {
-  const { filterType } = useAppSelector(state => state.todos)
-  const { handleSetFilterType } = useTask()
+type FilterPropType = {
+  filterType: FilterValuesType,
+  todoId: string
+}
+
+function FiltersTodo({ filterType, todoId }: FilterPropType) {
+  const { handleSetFilterType } = useTodo()
 
   return (
     <Box
@@ -20,7 +24,7 @@ function FiltersTodo() {
           key={filter}
           variant={filterType === filter ? "contained" : "outlined"}
           size="small"
-          onClick={() => handleSetFilterType(filter as FilterValuesType)}
+          onClick={() => handleSetFilterType(filter as FilterValuesType, todoId)}
         >
           {filter}
         </Button>
