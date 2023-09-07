@@ -1,9 +1,13 @@
-import { addTask, addTodo, removeTask, removeTodo, setFilterType, setIsDone, setTaskText, setTodoText } from '../features/todos/todosSlise';
+import { addTask, addTodo, removeTask, removeTodo, setFilterType, setIsDone, setTaskText, setLocalTodos, setTodoText } from '../features/todos/todosSlise';
 import { FilterValuesType } from '../Types/Types';
 import { useAppDispatch } from '../app/hooks';
 
 export const useTodo = () => {
   const dispatch = useAppDispatch();
+
+  const setTodos = () => {
+    dispatch(setLocalTodos())
+  }
 
   const handleAddTodo = () => {
     dispatch(addTodo())
@@ -50,15 +54,16 @@ export const useTodo = () => {
   }
 
   return {
+    setTodos,
     handleAddTodo,
-    onChangeInputTodoText, 
+    onChangeInputTodoText,
     onKeyDownInputTodo,
     handleRemoveTodo,
-    handleRemoveTask, 
-    handleAddTask, 
-    onChangeInputTaskText, 
+    handleRemoveTask,
+    handleAddTask,
+    onChangeInputTaskText,
     onKeyDownInputTask,
-    handleSetIsDone, 
-    handleSetFilterType 
+    handleSetIsDone,
+    handleSetFilterType
   }
 }

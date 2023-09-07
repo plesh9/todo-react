@@ -6,7 +6,7 @@ function Header() {
         <Box component="header" mt={5}>
             <Container maxWidth="xl">
                 <Typography variant="h4" component="h1" fontWeight={700} align="center">
-                    To do list
+                    Todo list
                 </Typography>
                 <Typography align="center" color="#ccc" mt={1}>
                     [React, Redux Toolkit, Typescript, Material UI]

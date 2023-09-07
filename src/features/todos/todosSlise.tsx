@@ -4,12 +4,12 @@ import { FilterValuesType, TaskType, TodoType } from "../../Types/Types"
 
 
 
-interface initialState {
+interface todosInitialState {
     todos: TodoType[];
     todoInputText: string;
 }
 
-const initialState: initialState = {
+const initialState: todosInitialState = {
     todos: [],
     todoInputText: '',
 }
@@ -22,6 +22,12 @@ const slice = createSlice({
     name: 'todoList',
     initialState,
     reducers: {
+        setLocalTodos(state) {
+            const localTodosJSON = localStorage.getItem("todos");
+            const localTodos: TodoType[] = localTodosJSON ? JSON.parse(localTodosJSON) : []
+            state.todos = localTodos
+        },
+
         addTodo(state) {
             const todoInputText = state.todoInputText.trim();
             if (!todoInputText) return;
@@ -37,6 +43,7 @@ const slice = createSlice({
 
             state.todos = [newTodo, ...state.todos]
             state.todoInputText = ''
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         },
 
         setTodoText(state, action: PayloadAction<{ todoInputText: string }>) {
@@ -44,7 +51,9 @@ const slice = createSlice({
         },
 
         removeTodo(state, action: PayloadAction<{ todoId: string }>) {
-            state.todos = state.todos.filter((todo) => todo.todoId !== action.payload.todoId);
+            const filterTodos = state.todos.filter((todo) => todo.todoId !== action.payload.todoId);
+            state.todos = filterTodos
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         },
 
         addTask(state, action: PayloadAction<{ todoId: string }>) {
@@ -63,6 +72,7 @@ const slice = createSlice({
             currentTodo.tasks = [newTask, ...currentTodo.tasks];
             currentTodo.filterTasks = [newTask, ...currentTodo.filterTasks];
             currentTodo.taskInputText = '';
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         },
 
         setTaskText(state, action: PayloadAction<{ taskInputText: string, todoId: string }>) {
@@ -79,6 +89,7 @@ const slice = createSlice({
             const taskId = action.payload.taskId;
             currentTodo.tasks = currentTodo.tasks.filter((task) => task.id !== taskId);
             currentTodo.filterTasks = currentTodo.filterTasks.filter((task) => task.id !== taskId);
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         },
 
         setIsDone(state, action: PayloadAction<{ taskId: string, todoId: string }>) {
@@ -92,6 +103,7 @@ const slice = createSlice({
 
             currentTodo.tasks = currentTodo.tasks.map(toggleDone);
             currentTodo.filterTasks = currentTodo.filterTasks.map(toggleDone);
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         },
 
         setFilterType(state, action: PayloadAction<{ filterType: FilterValuesType, todoId: string }>) {
@@ -118,11 +130,22 @@ const slice = createSlice({
                     currentTodo.filterTasks = [...currentTodo.tasks];
                     break;
             }
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         },
     }
 })
 
 
-export const { addTodo, setTodoText, removeTodo, removeTask, addTask, setTaskText, setIsDone, setFilterType } = slice.actions;
+export const {
+    setLocalTodos,
+    addTodo,
+    setTodoText,
+    removeTodo,
+    removeTask,
+    addTask,
+    setTaskText,
+    setIsDone,
+    setFilterType
+} = slice.actions;
 
 export default slice.reducer;
