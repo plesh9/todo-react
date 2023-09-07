@@ -1,5 +1,4 @@
-import { Container, Typography, Box, TextField, Button } from '@mui/material';
-import PlaylistAddCheckCircleIcon from '@mui/icons-material/PlaylistAddCheckCircle';
+import { Container, Typography, Box } from '@mui/material';
 
 function Header() {
     return (

@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import { Box, Container } from '@mui/material';
 import { useAppSelector } from '../../app/hooks';
+import { useTodo } from '../../hooks/useTodo';
 import Todo from './Todo/Todo';
 import NewTodo from './Todo/NewTodo';
-import { useTodo } from '../../hooks/useTodo';
 
 function Todos() {
   const { todos } = useAppSelector(state => state.todoList)

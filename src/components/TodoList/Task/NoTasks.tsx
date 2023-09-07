@@ -11,7 +11,7 @@ function NoTasks({ title }: NoTaskProp) {
             display="flex"
             alignItems="center"
             justifyContent="center"
-            style={{ flex: '1 1 auto'}}
+            style={{ flex: '1 1 auto' }}
         >
             <Typography>{title || "No tasks"}</Typography>
         </Box>

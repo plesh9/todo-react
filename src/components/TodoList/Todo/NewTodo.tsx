@@ -7,10 +7,10 @@ function NewTodo() {
     const { onChangeInputTodoText, handleAddTodo, onKeyDownInputTodo } = useTodo()
 
     return (
-        <Box 
-            display="flex" 
-            alignItems="flex-end" 
-            justifyContent="center" 
+        <Box
+            display="flex"
+            alignItems="flex-end"
+            justifyContent="center"
             columnGap={2}
             maxWidth="600px"
             width="100%"
