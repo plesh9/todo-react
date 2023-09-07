@@ -1,6 +1,6 @@
 import { Box, TextField, Button } from '@mui/material';
-import { useAppSelector } from '../../app/hooks';
-import { useTodo } from '../../hooks/useTodo';
+import { useAppSelector } from '../../../app/hooks';
+import { useTodo } from '../../../hooks/useTodo';
 
 function NewTodo() {
     const { todoInputText } = useAppSelector(state => state.todoList)

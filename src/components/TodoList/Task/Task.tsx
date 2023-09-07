@@ -1,14 +1,14 @@
 import { Checkbox, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useTodo } from '../../hooks/useTodo';
-import { TaskType } from '../../Types/Types';
+import { useTodo } from '../../../hooks/useTodo';
+import { TaskType } from '../../../Types/Types';
 
 type PropsTaskType = {
   task: TaskType,
   todoId: string
 }
 
-function TaskTodo({ task, todoId }: PropsTaskType) {
+function Task({ task, todoId }: PropsTaskType) {
   const { handleRemoveTask, handleSetIsDone } = useTodo()
 
   return (
@@ -35,4 +35,4 @@ function TaskTodo({ task, todoId }: PropsTaskType) {
   );
 }
 
-export default TaskTodo;
+export default Task;

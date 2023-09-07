@@ -1,14 +1,14 @@
 import { Box, Button } from "@mui/material";
-import { useAppSelector } from "../../app/hooks";
-import { useTodo } from "../../hooks/useTodo";
-import { FilterValuesType } from "../../Types/Types";
+import { useAppSelector } from "../../../app/hooks";
+import { useTodo } from "../../../hooks/useTodo";
+import { FilterValuesType } from "../../../Types/Types";
 
 type FilterPropType = {
   filterType: FilterValuesType,
   todoId: string
 }
 
-function FiltersTodo({ filterType, todoId }: FilterPropType) {
+function FilterTaskBtns({ filterType, todoId }: FilterPropType) {
   const { handleSetFilterType } = useTodo()
 
   return (
@@ -33,4 +33,4 @@ function FiltersTodo({ filterType, todoId }: FilterPropType) {
   );
 }
 
-export default FiltersTodo;
+export default FilterTaskBtns;
