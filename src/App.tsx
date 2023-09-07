@@ -1,16 +1,15 @@
-import { Container, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import Header from './components/Header/Header';
 import Todos from './components/TodoList/Todos';
 import './scss/index.scss';
 
 function App() {
   return (
-    <div className="App">
-      <Container maxWidth="xl">
-        <Typography variant="h4" component="h1" fontWeight={700} mt={5} align='center'>
-          To do list
-        </Typography>
+    <div className="app">
+      <Header />
+      <Box mt={4} component="main">
         <Todos />
-      </Container>
+      </Box>
     </div>
   );
 }

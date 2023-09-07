@@ -6,28 +6,12 @@ import { FilterValuesType, TaskType, TodoType } from "../../Types/Types"
 
 interface initialState {
     todos: TodoType[];
+    todoInputText: string;
 }
 
 const initialState: initialState = {
-    todos: [
-        {
-            title: 'Todo 2',
-            todoId: uuidv4(),
-            tasks: [],
-            filterTasks: [],
-            filterType: 'all',
-            taskInputText: '',
-        },
-        {
-            title: 'Todo 2',
-            todoId: uuidv4(),
-            tasks: [],
-            filterTasks: [],
-            filterType: 'all',
-            taskInputText: '',
-        }
-    ],
-
+    todos: [],
+    todoInputText: '',
 }
 
 const findTodoById = (todos: TodoType[], todoId: string): TodoType | undefined => {
@@ -38,6 +22,31 @@ const slice = createSlice({
     name: 'todoList',
     initialState,
     reducers: {
+        addTodo(state) {
+            const todoInputText = state.todoInputText.trim();
+            if (!todoInputText) return;
+
+            const newTodo = {
+                title: todoInputText,
+                todoId: uuidv4(),
+                tasks: [],
+                filterTasks: [],
+                filterType: 'all' as FilterValuesType,
+                taskInputText: '',
+            }
+
+            state.todos = [newTodo, ...state.todos]
+            state.todoInputText = ''
+        },
+
+        setTodoText(state, action: PayloadAction<{ todoInputText: string }>) {
+            state.todoInputText = action.payload.todoInputText;
+        },
+
+        removeTodo(state, action: PayloadAction<{ todoId: string }>) {
+            state.todos = state.todos.filter((todo) => todo.todoId !== action.payload.todoId);
+        },
+
         addTask(state, action: PayloadAction<{ todoId: string }>) {
             const currentTodo = findTodoById(state.todos, action.payload.todoId);
             if (!currentTodo) return;
@@ -114,6 +123,6 @@ const slice = createSlice({
 })
 
 
-export const { removeTask, addTask, setTaskText, setIsDone, setFilterType } = slice.actions;
+export const { addTodo, setTodoText, removeTodo, removeTask, addTask, setTaskText, setIsDone, setFilterType } = slice.actions;
 
 export default slice.reducer;
