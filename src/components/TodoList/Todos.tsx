@@ -26,8 +26,7 @@ function Todos() {
               <Todo todo={todo} key={todo.todoId} />
             ))}
           </Grid>
-          :
-          <NoTodos />
+          : ''
         }
       </Container>
     </Box>

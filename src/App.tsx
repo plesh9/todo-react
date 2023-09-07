@@ -5,12 +5,12 @@ import './scss/index.scss';
 
 function App() {
   return (
-    <div className="app">
+    <Box className="app">
       <Header />
       <Box mt={4} component="main">
         <Todos />
       </Box>
-    </div>
+    </Box>
   );
 }
 
