@@ -5,6 +5,7 @@ import { useAppSelector } from '../../app/hooks';
 import { useTodo } from '../../hooks/useTodo';
 import Todo from './Todo/Todo';
 import NewTodo from './Todo/NewTodo';
+import NoTodos from './Todo/NoTodos';
 
 function Todos() {
   const { todos } = useAppSelector(state => state.todoList)
@@ -18,11 +19,16 @@ function Todos() {
     <Box component="section">
       <Container maxWidth="xl">
         <NewTodo />
-        <Grid container spacing={3} mt={4}>
-          {todos.map((todo) => (
-            <Todo todo={todo} key={todo.todoId} />
-          ))}
-        </Grid>
+        {todos.length
+          ?
+          <Grid container spacing={3} mt={4}>
+            {todos.map((todo) => (
+              <Todo todo={todo} key={todo.todoId} />
+            ))}
+          </Grid>
+          :
+          <NoTodos />
+        }
       </Container>
     </Box>
   );
